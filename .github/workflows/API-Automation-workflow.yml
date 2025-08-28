@@ -28,5 +28,5 @@ jobs:
       run: chmod +x gradlew
 
     - name: execute test
-    - run: ./gradlew cucumber
+      run: ./gradlew cucumber
             
