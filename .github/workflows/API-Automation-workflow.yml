@@ -28,5 +28,20 @@ jobs:
       run: chmod +x gradlew
 
     - name: execute test
-      run: ./gradlew cucumber
-            
+      run: ./gradlew clean test
+
+    - name: Upload JUnit report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-report
+        path: "**/build/test-results/test/**"
+    
+    - name: Upload Allure results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-results
+        path: "**/build/allure-results/**"
+
+       
