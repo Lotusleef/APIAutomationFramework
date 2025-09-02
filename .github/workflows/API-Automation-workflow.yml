@@ -41,3 +41,25 @@ jobs:
         with:
           name: api-allure-results
           path: "**/build/allure-results/**"
+
+      - name: Cara membuka report
+        if: always()
+        run: |
+          cat << 'EOF' >> $GITHUB_STEP_SUMMARY
+          ## Cara membuka report
+
+          **Artifacts yang tersedia di run ini:**
+          - **api-junit** → berisi file JUnit XML.
+            - Cara buka: download & unzip, lalu buka file XML dengan editor / import ke tool CI (Jenkins, GitLab, dsb).
+
+          - **api-allure-results** → berisi *raw* Allure results.
+            - Cara buka sebagai HTML (lokal):
+              1) Download & unzip **api-allure-results**.
+              2) Install **Allure Commandline** di mesin lokal.
+              3) Jalankan salah satu:
+                 - `allure serve <folder-allure-results>`  → otomatis buka di browser, atau
+                 - `allure generate <folder-allure-results> --clean -o allure-report`
+                   lalu buka `allure-report/index.html`.
+
+          > Catatan: Jika ingin HTML langsung dari pipeline, tambahkan langkah `./gradlew allureReport` dan upload folder `build/reports/allure-report`.
+          EOF
